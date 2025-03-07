@@ -3,7 +3,6 @@
   stdenv,
   rustPlatform,
   fetchFromGitHub,
-
   jq,
   moreutils,
   fetchNpmDeps,
@@ -12,21 +11,19 @@
   cargo-tauri,
   pkg-config,
   wrapGAppsHook3,
-
   openssl,
   libsoup_3,
   webkitgtk_4_1,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gale";
-  version = "1.3.1";
+  version = "1.4.2";
 
   src = fetchFromGitHub {
     owner = "Kesomannen";
     repo = "gale";
     tag = finalAttrs.version;
-    hash = "sha256-cIholTqWxDb3CkKCY8qRhevxd7CQxBlBGmhJ/91K1g4=";
+    hash = "sha256-xe0qlbtt06CUK8bXyaGDtCcHOXpSnkbuvcxaDJjeS/c=";
   };
 
   postPatch = ''
@@ -36,17 +33,18 @@ stdenv.mkDerivation (finalAttrs: {
   npmDeps = fetchNpmDeps {
     name = "${finalAttrs.pname}-${finalAttrs.version}-npm-deps";
     inherit (finalAttrs) src;
-    hash = "sha256-qhH8jeRQZgx6DELzxczt6AmoILxZHUkVpVkYZoDQPRQ=";
+    hash = "sha256-/+NhlQydGS6+2jEjpbwycwKplVo/++wcdPiBNY3R3FI=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit (finalAttrs)
+    inherit
+      (finalAttrs)
       pname
       version
       src
       cargoRoot
       ;
-    hash = "sha256-RtTqdbMZlsLNEoxdwjUd0B/3TkdbDpcjOMhH8BlshfE=";
+    hash = "sha256-VwzGbm34t7mg9ndmTkht6Ho32NQ+6uxuPTKi3+VrhYo=";
   };
 
   cargoRoot = "src-tauri";
@@ -76,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Kesomannen/gale";
     license = lib.licenses.gpl3Only;
     mainProgram = "gale";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.linux;
   };
 })
